@@ -42,6 +42,7 @@ conda create -n SEDR_Env python=3.8 pip
 conda activate SEDR_Env
 pip install -r requirements.txt
 ```
+Time to install the requirements depends on the the running system, and it is about 30 minutes. There is no need to install SEDR, you can run the script directly. 
 
 
 ## Quick Start:
@@ -64,13 +65,14 @@ sed_feat = saved_result$f[["sed_feat"]]
 
 We also provide three examples:
 
-1. `run_SEDR_10x_Genomics_Visium.py`: The demo code for *'Visium 10x Genomics'* data (<https://support.10xgenomics.com/spatial-gene-expression/datasets>).
+1. `run_SEDR_DLPFC_all_data.py`: The demo code for *'LIBD human dorsolateral prefrontal cortex (DLPFC, <http://research.libd.org/spatialLIBD/>)'* data. The raw data are publicly available from the Globus endpoint ‘jhpce#HumanPilot10x’ that is also listed at <http://research.libd.org/globus>. It will take around 40 minutes to run all DLPFC samples on GPU.
+   
+   ![](figure/DLPFC_result.jpg)
+
+2. `run_SEDR_10x_Genomics_Visium.py`: The demo code for *'Visium 10x Genomics'* data (<https://support.10xgenomics.com/spatial-gene-expression/datasets/1.1.0/V1_Breast_Cancer_Block_A_Section_1> ).
    
    ![](figure/Visium_result.jpg)
 
-2. `run_SEDR_DLPFC_all_data.py`: The demo code for *'LIBD human dorsolateral prefrontal cortex (DLPFC, <http://research.libd.org/spatialLIBD/>)'* data. The raw data are publicly available from the Globus endpoint ‘jhpce#HumanPilot10x’ that is also listed at <http://research.libd.org/globus>.
-   
-   ![](figure/DLPFC_result.jpg)
 
 3. `run_UBC_DLPFC_data.py`: The demo code for unsupervised batch correction for multiple *DLPFC* data. 
    
