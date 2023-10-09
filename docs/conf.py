@@ -29,19 +29,10 @@ import sys
 # ones.
 extensions = [
     "hoverxref.extension",
-    "sphinx_copybutton",
-    "sphinx_design",
-    "sphinx_search.extension",
-    "sphinx_tabs.tabs",
-    "sphinx-prompt",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
-    "sphinxcontrib.httpdomain",
-    "sphinxcontrib.video",
-    "sphinxemoji.sphinxemoji",
-    "sphinxext.opengraph",
 ]
 
 
