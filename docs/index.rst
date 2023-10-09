@@ -8,10 +8,10 @@ SEDR – Unsupervised spatially embedded deep representation of spatial transcri
     :maxdepth: 1
 
     Installation
-    Tutorial1 Clustering
-    Tutorial2 Imputation
-    Tutorial3 Batch_integration
-    Tutorial4 Stereo-seq
+    Tutorial1_Clustering
+    Tutorial2_Imputation
+    Tutorial3_Batch_integration
+    Tutorial4_Stereo-seq
 
 .. image:: ../figure/Overview.png
    :width: 1400
