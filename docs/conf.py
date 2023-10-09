@@ -36,6 +36,7 @@ import sys
 # ]
 extensions = [
     'nbsphinx',
+    'sphinx_gallery.load_style',
     # 'sphinxcontrib.bibtex',  # for bibliographic references
     # 'sphinxcontrib.rsvgconverter',  # for SVG->PDF conversion in LaTeX output
     # 'sphinx_last_updated_by_git',  # get "last updated" from Git
