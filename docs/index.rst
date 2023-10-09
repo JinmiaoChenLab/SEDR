@@ -13,7 +13,7 @@ Tutorials
 =============
 
 .. nbgallery::
-    Tutorial1 Clustering.ipynb
+    Tutorial1 Clustering
     Tutorial2 Imputation
     Tutorial3 Batch_integration
     Tutorial4 Stereo-seq
