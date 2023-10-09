@@ -27,14 +27,16 @@ import sys
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+# extensions = [
+#     "hoverxref.extension",
+#     "sphinx.ext.autodoc",
+#     "sphinx.ext.autosectionlabel",
+#     "sphinx.ext.extlinks",
+#     "sphinx.ext.intersphinx",
+# ]
 extensions = [
-    "hoverxref.extension",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosectionlabel",
-    "sphinx.ext.extlinks",
-    "sphinx.ext.intersphinx",
+    "nbsphinx",
 ]
-
 
 autosummary_generate = True
 
