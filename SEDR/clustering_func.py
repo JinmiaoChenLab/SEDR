@@ -2,24 +2,48 @@ import scanpy as sc
 import pandas as pd
 import numpy as np
 
-def res_search_fixed_clus(adata, fixed_clus_count, increment=0.02):
-    '''
-    Input:
-        adata: AnnData
-        fixed_clus_count: int
-        increment: float
+def res_search_fixed_clus_leiden(adata, n_clusters, increment=0.01, random_seed=2023):
 
-    return:
-        resolution: float
-    '''
-    for res in sorted(list(np.arange(0.2, 2, increment)), reverse=False):
-        sc.tl.leiden(adata, random_state=0, resolution=res)
-        count_unique_leiden = len(pd.DataFrame(adata.obs['leiden']).leiden.unique())
-        if count_unique_leiden == fixed_clus_count:
+    for res in np.arange(0.2, 2, increment):
+        sc.tl.leiden(adata, random_state=random_seed, resolution=res)
+        if len(adata.obs['leiden'].unique()) > n_clusters:
             break
-    return res
+    return res-increment
 
-def mclust_R(adata, n_clusters, modelNames='EEE', use_rep='SEDR', key_added='SEDR', random_seed=2023):
+
+def leiden(adata, n_clusters, key_added='SEDR', random_seed=2023):
+    sc.pp.neighbor(adata, use_rep=use_rep)
+    res = res_search_fixed_clus_leiden(adata, n_clusters, increment=0.01, random_seed=random_seed)
+    sc.tl.leiden(adata, random_state=random_seed, resolution=res)
+
+    adata.obs[key_added] = adata.obs['leiden']
+    adata.obs[key_added] = adata.obs[key_added].astype('int')
+    adata.obs[key_added] = adata.obs[key_added].astype('category')
+
+    return adata
+
+
+def res_search_fixed_clus_louvain(adata, n_clusters, increment=0.01, random_seed=2023):
+    for res in np.arange(0.2, 2, increment):
+        sc.tl.louvain(adata, random_state=random_seed, resolution=res)
+        if len(adata.obs['louvain'].unique()) > n_clusters:
+            break
+    return res-increment
+
+def louvain(adata, n_clusters, key_added='SEDR', random_seed=2023):
+    sc.pp.neighbor(adata, use_rep=use_rep)
+    res = res_search_fixed_clus_louvain(adata, n_clusters, increment=0.01, random_seed=random_seed)
+    sc.tl.louvain(adata, random_state=random_seed, resolution=res)
+
+    adata.obs[key_added] = adata.obs['louvain']
+    adata.obs[key_added] = adata.obs[key_added].astype('int')
+    adata.obs[key_added] = adata.obs[key_added].astype('category')
+
+    return adata
+
+
+
+def mclust_R(adata, n_clusters, use_rep='SEDR', key_added='SEDR', random_seed=2023):
     """\
     Clustering using the mclust algorithm.
     The parameters are the same as those in the R package mclust.
