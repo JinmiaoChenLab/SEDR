@@ -50,6 +50,7 @@ def mclust_R(adata, n_clusters, use_rep='SEDR', key_added='SEDR', random_seed=20
     """
     import os
     os.environ['R_HOME'] = '/scbio4/tools/R/R-4.0.3_openblas/R-4.0.3'
+    modelNames = 'EEE'
 
     np.random.seed(random_seed)
     import rpy2.robjects as robjects
