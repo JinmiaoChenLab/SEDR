@@ -25,7 +25,7 @@ We highly recommend users to create a separate environment for SEDR.
 
 .. code-block:: python
 
-    conda create -n SEDR_Env python=3.11
+    conda create -n SEDR python=3.11
 
     conda activate SEDR
 
@@ -35,7 +35,7 @@ We highly recommend users to create a separate environment for SEDR.
 
     python setup.py build
 
-    python setup.py.install
+    python setup.py install
 
 
 To use SEDR in notebook,
@@ -45,4 +45,3 @@ To use SEDR in notebook,
     pip install ipykernel
 
     python -m ipykernel install --user --name=SEDR_Env
-
