@@ -38,6 +38,21 @@ We highly recommend users to create a separate environment for SEDR.
     python setup.py install
 
 
+Alternatively, you can install SEDR using a conda YAML file
+
+.. code-block:: python
+
+    git clone https://github.com/JinmiaoChenLab/SEDR.git
+
+    cd SEDR
+
+    conda env create -f environment.yml
+
+    conda activate SEDR
+
+    pip install .
+
+
 To use SEDR in notebook,
 
 .. code-block:: bash
