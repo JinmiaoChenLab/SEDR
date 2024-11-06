@@ -1,0 +1,34 @@
+# -  To create a new environment:
+# conda env create -f environment.yaml
+
+# -  To update the existing environment,
+#       modify this file and run:
+# conda env update -f environment.yaml
+
+name: SEDR
+
+channels:
+  - conda-forge
+  
+dependencies:
+  - python=3.11
+  - pip
+  - ipykernel
+  - tqdm
+  - scipy
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - scikit-image
+  - scikit-misc
+  - anndata
+  - scanpy
+  - r-base
+  - rpy2
+  - igraph
+  - leidenalg
+  - pip:
+    - torch
+    - harmonypy
