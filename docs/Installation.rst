@@ -16,7 +16,7 @@ SEDR package is mainly based on python.
 
     python setup.py build
 
-    python setup.py.install
+    python setup.py install
 
 
 2. Anaconda
@@ -59,7 +59,7 @@ To use SEDR in notebook,
 
     pip install ipykernel
 
-    python -m ipykernel install --user --name=SEDR_Env
+    python -m ipykernel install --user --name=SEDR
 
 
 The mclust R package is needed for running the notebooks. To install it, run the following lines in a python cell:
