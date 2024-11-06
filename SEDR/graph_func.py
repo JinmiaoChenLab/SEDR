@@ -153,14 +153,53 @@ def graph_construction(adata, n=6, dmax=50, mode='KNN'):
 
     return graph_dict
 
+def block_diag_sparse(*arrs):
+        bad_args = [k for k in range(len(arrs)) if not (isinstance(arrs[k], torch.Tensor) and arrs[k].ndim == 2)]
+        if bad_args:
+            raise ValueError("arguments in the following positions must be 2-dimension tensor: %s" % bad_args)
+
+        list_shapes = [a.shape for a in arrs]
+        list_indices = [a.coalesce().indices().clone() for a in arrs]
+        list_values = [a.coalesce().values().clone() for a in arrs]
+
+        r_start = 0
+        c_start = 0
+        for i in range(len(arrs)):
+            list_indices[i][0, :] += r_start
+            list_indices[i][1, :] += c_start
+
+            r_start += list_shapes[i][0]
+            c_start += list_shapes[i][1]
+
+        indices = torch.concat(list_indices, axis=1)
+        values = torch.concat(list_values)
+        shapes = torch.tensor(list_shapes).sum(axis=0)
+
+        out = torch.sparse_coo_tensor(indices, values, (shapes[0], shapes[1]))
+
+        return out
+
 
 def combine_graph_dict(dict_1, dict_2):
     # TODO add adj_org
-    tmp_adj_norm = torch.block_diag(dict_1['adj_norm'].to_dense(), dict_2['adj_norm'].to_dense())
-    tmp_adj_label = torch.block_diag(dict_1['adj_label'].to_dense(), dict_2['adj_label'].to_dense())
+    tmp_adj_norm = block_diag_sparse(dict_1['adj_norm'], dict_2['adj_norm'])
+    tmp_adj_label = block_diag_sparse(dict_1['adj_label'], dict_2['adj_label'])
     graph_dict = {
-        "adj_norm": tmp_adj_norm.to_sparse(),
-        "adj_label": tmp_adj_label.to_sparse(),
+        "adj_norm": tmp_adj_norm.coalesce(),
+        "adj_label": tmp_adj_label.coalesce(),
         "norm_value": np.mean([dict_1['norm_value'], dict_2['norm_value']])
     }
     return graph_dict
+
+
+
+# def combine_graph_dict(dict_1, dict_2):
+#     # TODO add adj_org
+#     tmp_adj_norm = torch.block_diag(dict_1['adj_norm'].to_dense(), dict_2['adj_norm'].to_dense())
+#     tmp_adj_label = torch.block_diag(dict_1['adj_label'].to_dense(), dict_2['adj_label'].to_dense())
+#     graph_dict = {
+#         "adj_norm": tmp_adj_norm.to_sparse(),
+#         "adj_label": tmp_adj_label.to_sparse(),
+#         "norm_value": np.mean([dict_1['norm_value'], dict_2['norm_value']])
+#     }
+#     return graph_dict
